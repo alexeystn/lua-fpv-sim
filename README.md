@@ -18,5 +18,5 @@ https://youtu.be/shNwYKozE4o
 * Get as many points as you can in 30 seconds.
 
 #### How to install:
-* Copy `SCRIPTS/simulator.lua` file from this repository to `SCRIPTS` directory of your SD card
+* Copy [`SCRIPTS/simulator.lua`](https://raw.githubusercontent.com/alexeystn/lua-fpv-sim/master/SCRIPTS/simulator.lua) file from this repository to `SCRIPTS` directory of your SD card
 * Long press `Menu` button to enter. Navigate to SD-card page. Find the simulator file. Long press `Enter` button and choose 'Execute'.
