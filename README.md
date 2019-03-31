@@ -1,5 +1,7 @@
 # Lua FPV Simulator
 
+April Fools' joke which is not actually a joke 😉
+
 ![](https://raw.githubusercontent.com/alexeystn/lua-fpv-sim/master/images/scr1.png)
 ![](https://raw.githubusercontent.com/alexeystn/lua-fpv-sim/master/images/scr2.png)
 ![](https://raw.githubusercontent.com/alexeystn/lua-fpv-sim/master/images/scr3.png)
