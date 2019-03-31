@@ -1,12 +1,12 @@
 # Lua FPV Simulator
 
-April Fools' joke which is not actually a joke 😉
-
 ![](https://raw.githubusercontent.com/alexeystn/lua-fpv-sim/master/images/scr1.png)
 ![](https://raw.githubusercontent.com/alexeystn/lua-fpv-sim/master/images/scr2.png)
 ![](https://raw.githubusercontent.com/alexeystn/lua-fpv-sim/master/images/scr3.png)
 
 The fisrt FPV drone simulator running directly on OpenTX transmitters! 
+
+April Fools' joke which is not actually a joke 😉
 
 https://youtu.be/shNwYKozE4o
 
