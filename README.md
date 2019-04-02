@@ -20,5 +20,8 @@ https://youtu.be/shNwYKozE4o
 * Get as many points as you can in 30 seconds.
 
 #### How to install:
-* Copy [`SCRIPTS/simulator.lua`](https://raw.githubusercontent.com/alexeystn/lua-fpv-sim/master/SCRIPTS/simulator.lua) file from this repository to `SCRIPTS` directory of your SD card
-* Long press `Menu` button to enter Radio Setup. Navigate to SD-card page (2/9). Find the simulator file. Long press `Enter` button and choose 'Execute'.
+* Copy [`SCRIPTS/simulator.lua`](https://raw.githubusercontent.com/alexeystn/lua-fpv-sim/master/SCRIPTS/simulator.lua) file from this repository to `SCRIPTS` directory of your SD card.
+* Long press `Menu` button to enter Radio Setup. Navigate to SD-card page (2/9). Find the simulator file. Long press `Enter` button and choose `Execute`.
+
+If sim looks blurry at high speed, change the value in line #7: `local lowFps = false` from `false` to `true`.
+Most transmitters LCDs have a very slow response time. They are not intended to display dynamic scenes with high FPS.
