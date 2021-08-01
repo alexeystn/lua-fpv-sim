@@ -91,11 +91,11 @@ local function drawLandscape()
   drawBorder(xDispFar, yDispFar, xDispClose, yDispClose)
   xDispFar = LCD_W / 2 - 1
   xDispClose = ((- w - drone.x) * zScale) / z + LCD_W / 2
-  drawBorder(xDispFar, yDispFar, xDispClose, yDispClose)  
+  drawBorder(xDispFar, yDispFar, xDispClose, yDispClose)
   lcd.drawLine(0, LCD_H/2 + 1, LCD_W - 1, LCD_H/2 + 1, DOTTED, FORCE) -- horizon
 end
 
-local function drawLine(x1, y1, x2, y2, flag) 
+local function drawLine(x1, y1, x2, y2, flag)
   if flag == 'h' then
     if y1 < 0 or y1 > LCD_H then return 0 end
     if x1 < 0 and x2 < 0 then return 0 end
@@ -180,8 +180,8 @@ local function drawObject(object, markerFlag)
     drawLine(xDispRight, yDispMid, xDispRight, yDispTop, 'v')
     drawLine(xDispLeft, yDispTop, xDispRight, yDispTop, 'h')
     drawLine(xDispLeft, yDispMid, xDispRight, yDispMid, 'h')
-  end	
-  if markerFlag then 
+  end
+  if markerFlag then
     drawMarker(xDispMarker, yDispMarker)
   end
 end
@@ -193,12 +193,12 @@ local function generateObject()
   typeId = math.random(1,6)
   if typeId == 1 or typeId == 2 then
     object.t = "gateGround"
-  elseif typeId == 3 or typeId == 4 then	
-    object.t = "gateAir"		
-  elseif typeId == 5 then	
+  elseif typeId == 3 or typeId == 4 then
+    object.t = "gateAir"
+  elseif typeId == 5 then
     object.t = "flagRight"
     object.x = - math.abs(object.x) - track.w
-  elseif typeId == 6 then	
+  elseif typeId == 6 then
     object.t = "flagLeft"
     object.x = math.abs(object.x) + track.w
   end
@@ -230,13 +230,13 @@ local function run_func(event)
     else
       lcd.drawText(LCD_W/2 - 47, 28, "Lua FPV Simulator", BOLD)
     end
-    if event == EVT_ENTER_BREAK then 
+    if event == EVT_ENTER_BREAK then
       drone.x = 0
       drone.y = 0
       drone.z = 0
       objectCounter = 0
       for i = 1, objectsN do
-        objects[i] = generateObject(zObjectsStep * i) 
+        objects[i] = generateObject(zObjectsStep * i)
       end
       counter = 0
       countDown = 3
@@ -254,16 +254,16 @@ local function run_func(event)
         fpsCounter = 0
         return 0
       end
-    end    
+    end
     lcd.clear()
     currentTime = getTime()
     if currentTime < startTime then
       local cnt = (startTime - currentTime) / 100 + 1
-      if cnt < countDown then 
+      if cnt < countDown then
         playTone(1500, 100, 0)
         countDown = countDown - 1
       end
-      lcd.drawNumber(LCD_W/2 - 2, 48, cnt, BOLD)
+      lcd.drawNumber(LCD_W/2 - 2, LCD_H - LCD_H/3, cnt, BOLD)
     elseif currentTime < finishTime then
       if (currentTime - startTime) < 100 then
         lcd.drawText(LCD_W/2 - 6, 48, 'GO!', BOLD)
@@ -277,11 +277,11 @@ local function run_func(event)
       speed.y = getValue('thr') / throttleScale
       if speed.z < 0 then speed.z = 0 end
       drone.y = drone.y - speed.y
-      if drone.y >= 0 then 
-        drone.y = 0 
+      if drone.y >= 0 then
+        drone.y = 0
         speed.z = 0
         speed.x = 0
-      end     
+      end
       drone.z = drone.z + speed.z
       drone.x = drone.x + speed.x
       if drone.x > track.w * 3 then drone.x = track.w * 3 end
@@ -308,22 +308,22 @@ local function run_func(event)
     for i = 1, objectsN do
       if drone.z >= objects[i].z then
         success = false
-        if objects[i].t == "gateGround" then 
+        if objects[i].t == "gateGround" then
           if (math.abs(objects[i].x - drone.x) <= gate.w/2) and (drone.y > -gate.h) then
             success = true
           end
-        elseif objects[i].t == "gateAir" then 
+        elseif objects[i].t == "gateAir" then
           if (math.abs(objects[i].x - drone.x) <= gate.w/2) and (drone.y < -gate.h) and (drone.y > -2*gate.h) then
             success = true
           end
-        elseif objects[i].t == "flagLeft" then 				
-          if (objects[i].x < drone.x) and (drone.y > -2*gate.h) then 
+        elseif objects[i].t == "flagLeft" then
+          if (objects[i].x < drone.x) and (drone.y > -2*gate.h) then
             success = true
           end
-        elseif objects[i].t == "flagRight" then 				
-          if (objects[i].x > drone.x) and (drone.y > -2*gate.h) then 
+        elseif objects[i].t == "flagRight" then
+          if (objects[i].x > drone.x) and (drone.y > -2*gate.h) then
             success = true
-          end				
+          end
         end
         if success then
           counter = counter + 1
@@ -335,11 +335,11 @@ local function run_func(event)
         objects[i] = generateObject()
       else
         drawObject(objects[i], i == closestN)
-      end	
+      end
     end
     drawLandscape()
     lcd.drawNumber(3, 2, counter)
-    if event == EVT_EXIT_BREAK then 
+    if event == EVT_EXIT_BREAK then
       raceStarted = false
       counter = nil
     end
