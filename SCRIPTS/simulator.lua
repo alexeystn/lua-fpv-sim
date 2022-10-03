@@ -36,6 +36,7 @@ local objectCounter = 0
 local bestResultPath = "/SCRIPTS/simulator.txt"
 local isNewBest = false
 
+local highRes = 0
 
 local function loadBestResult()
   local f = io.open(bestResultPath, "r")
@@ -212,23 +213,29 @@ local function init_func()
     throttleScale = throttleScale / 2
   end
   bestResult = loadBestResult()
+  if LCD_W >= 480 then
+    FORCE = 0  -- override macro not defined in 480x272 lcd
+    highRes = 1
+    zScale = zScale * 4
+    objectsN = objectsN * 2
+  end
 end
 
 local function run_func(event)
   if not raceStarted then
     lcd.clear()
-    lcd.drawText(LCD_W/2 - 59, 54, "Press [Enter] to start")
+    lcd.drawText(LCD_W/2 - 59 - 20*highRes, LCD_H/2 + 22, "Press [Enter] to start")
     if counter then
-      lcd.drawText(LCD_W/2 - 27, 28, "Result:")
-      lcd.drawNumber(LCD_W/2 + 12, 28, counter, BOLD)
+      lcd.drawText(LCD_W/2 - 27 - 10*highRes, LCD_H/2 - 4, "Result:")
+      lcd.drawNumber(LCD_W/2 + 12 + 14*highRes, LCD_H/2 - 4, counter, BOLD)
       if isNewBest then
-        lcd.drawText(LCD_W/2 - 42, 2, "New best score!")
+        lcd.drawText(LCD_W/2 - 42 - 20*highRes, LCD_H/2 - 30, "New best score!")
       else
-        lcd.drawText(LCD_W/2 - 37, 2, "Best score:")
-        lcd.drawNumber(LCD_W/2 + 26, 2, bestResult)
+        lcd.drawText(LCD_W/2 - 37 - 15*highRes, LCD_H/2 - 30, "Best score:")
+        lcd.drawNumber(LCD_W/2 + 26 + 15*highRes, LCD_H/2 - 30, bestResult)
       end
     else
-      lcd.drawText(LCD_W/2 - 47, 28, "Lua FPV Simulator", BOLD)
+      lcd.drawText(LCD_W/2 - 47 - 25*highRes, LCD_H/2 - 4, "Lua FPV Simulator", BOLD)
     end
     if event == EVT_ENTER_BREAK then
       drone.x = 0
@@ -263,10 +270,10 @@ local function run_func(event)
         playTone(1500, 100, 0)
         countDown = countDown - 1
       end
-      lcd.drawNumber(LCD_W/2 - 2, LCD_H - LCD_H/3, cnt, BOLD)
+      lcd.drawNumber(LCD_W/2 - 2, LCD_H/2 + 16, cnt, BOLD)
     elseif currentTime < finishTime then
       if (currentTime - startTime) < 100 then
-        lcd.drawText(LCD_W/2 - 6, 48, 'GO!', BOLD)
+        lcd.drawText(LCD_W/2 - 6, LCD_H/2 + 16, 'GO!', BOLD)
         if not startTonePlayed then
           playTone(2250, 500, 0)
           startTonePlayed = true
@@ -297,7 +304,7 @@ local function run_func(event)
     end
     remainingTime = (finishTime - currentTime)/100 + 1
     if remainingTime > raceTime then remainingTime = raceTime end
-    lcd.drawTimer(LCD_W - 25, 2, remainingTime)
+    lcd.drawTimer(LCD_W - 25 - 22*highRes, 2, remainingTime)
     local closestDist = drone.z + zObjectsStep * objectsN
     for i = 1, objectsN do
       if objects[i].z < closestDist and objects[i].z > (drone.z + speed.z) then
