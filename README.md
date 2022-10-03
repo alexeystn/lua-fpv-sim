@@ -11,8 +11,7 @@ April Fools' joke which is not actually a joke 😉
 https://youtu.be/shNwYKozE4o
 
 #### Requirements:
-* FrSky Taranis Q X7 / X9 / X-Lite 
-* OpenTX 2.2.0 or newer
+* Any OpenTX / EdgeTX radio
 * SD card
 
 #### How to play:
